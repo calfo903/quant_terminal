@@ -1,0 +1,29 @@
+# Fly.io deployment for the FastAPI backend.
+# Set secrets with: fly secrets set REDIS_URL=... TIMESCALEDB_URL=... LLM_CLOUD_API_KEY=...
+app = "quant-ai-terminal"
+primary_region = "lhr"   # London - closest EU region to Kenya
+
+build = { dockerfile = "Dockerfile" }
+
+[env]
+  APP_ENV = "production"
+  PORT = "8000"
+  # Single instance: also run the ingest/forex stream here.
+  RUN_BACKGROUND_TASKS = "true"
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250
+  [[http_service.checks]]
+    interval = "15s"
+    timeout = "5s"
+    grace_period = "30s"
+    method = "GET"
+    path = "/healthz"

@@ -1,0 +1,12 @@
+# Railway deployment for the FastAPI backend.
+# The root Dockerfile builds the image; env vars (REDIS_URL, TIMESCALEDB_URL,
+# LLM_CLOUD_API_KEY, ...) are set in the Railway project settings.
+[build]
+dockerfilePath = "Dockerfile"
+builder = "dockerfile"
+
+[deploy]
+healthcheckPath = "/healthz"
+healthcheckTimeout = 100
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10

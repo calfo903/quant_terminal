@@ -1,0 +1,51 @@
+# ── Secrets / environment (P2 #13: never commit secrets) ──
+
+.env
+
+.env.*
+
+!.env.example
+
+frontend/.env.local
+
+frontend/.env*
+
+
+
+# ── Python ──
+
+__pycache__/
+
+*.py[cod]
+
+.venv/
+
+venv/
+
+*.egg-info/
+
+.pytest_cache/
+
+.mypy_cache/
+
+
+
+# ── Node / Next.js ──
+
+node_modules/
+
+.next/
+
+out/
+
+npm-debug.log*
+
+
+
+# ── Editor / OS ──
+
+.idea/
+
+.vscode/
+
+.DS_Store

@@ -1,0 +1,5 @@
+[tool.pytest.ini_options]
+# Tests import the app package and the tests package directly.
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q"
