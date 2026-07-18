@@ -153,7 +153,11 @@ natural-language commentary. It never computes the trade numbers.
     fake Redis / in-memory fallback.
 - **CI** (`.github/workflows/ci.yml`): on push/PR to `main`, runs
   `python -m compileall -q app` then `pytest` on Python 3.11 + 3.13, and a
-  best-effort frontend type-check/build.
+  best-effort frontend type-check/build. A separate non-blocking **`security`**
+  job runs `pip-audit` (Python) and `npm audit` (frontend).
+- **Supply-chain**: Dependabot (`.github/dependabot.yml`) opens weekly
+  version-bump PRs for `pip`, `npm`, and GitHub Actions; pair it with the audit
+  job above to keep dependencies patched.
 - **Structured JSON logging** (standard 5.1): `app/core/logging.py` emits
   single-line JSON via `JsonFormatter` and redacts secrets (by key and by value,
   e.g. API key / DB DSN / Redis URL). Wired into `app/main.py`; use

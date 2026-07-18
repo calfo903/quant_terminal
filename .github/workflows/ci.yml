@@ -49,7 +49,6 @@ jobs:
         with:
           node-version: "20"
           cache: npm
-          cache-dependency-path: frontend/package-lock.json
 
       - name: Install (if lockfile present)
         # No network/binary install is required to *type-check*; `next build`
@@ -61,3 +60,36 @@ jobs:
       - name: Type-check / build
         run: npm run build || echo "frontend build skipped (deps unavailable)"
         continue-on-error: true
+
+  security:
+    # Supply-chain scanning. Runs in parallel with the test suite and is
+    # non-blocking for now (continue-on-error) so the pipeline stays green
+    # while the Dependabot alerts are triaged. Remove `continue-on-error`
+    # once critical/high findings are resolved to make this a required gate.
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Python dependency audit (pip-audit)
+        run: |
+          python -m pip install --upgrade pip pip-audit
+          pip-audit -r requirements.txt --desc on
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Frontend dependency audit (npm audit)
+        working-directory: frontend
+        run: |
+          npm install
+          npm audit --audit-level=high
+
