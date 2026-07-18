@@ -95,6 +95,10 @@ scored news feed, and a data-aware AI chat assistant.
 
 ## Deployment (Vercel + Railway/Fly)
 
+> Full, copy-paste deployment runbook (env-var reference, Railway / Fly.io /
+> Vercel, Alembic, health checks, CI, rollback): see
+> [DEPLOYMENTS.md](./DEPLOYMENTS.md).
+
 The terminal is split into a **Next.js frontend** and a **FastAPI backend**
 (which also runs the ingest worker, TimescaleDB, and Redis).
 
@@ -171,4 +175,9 @@ app/
 frontend/
   app/page.tsx                 # dashboard: charts tool + news sidebar + chat panel
   components/{TradingViewChart,ChartToolbar,NewsSidebar,ChatPanel,ImageUpload,AnalysisResults}.tsx
+```
+
+## License
+
+Licensed under the **Apache License 2.0** — see [LICENSE](./LICENSE).
 ```
