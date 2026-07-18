@@ -14,7 +14,6 @@ from app.core.database import get_redis
 
 from app.services.mlops.news import news_service
 from app.services.ai_engine.market_strength import market_strength_service
-from app.services.ai_engine.market_strength import market_strength_service
 
 from app.services.mlops.sentiment import sentiment_engine
 

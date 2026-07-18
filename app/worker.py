@@ -27,6 +27,7 @@ import logging
 
 
 from app.core.database import init_redis, close_connections, get_redis
+from app.core.config import settings
 
 from app.services.data_ingestion.binance_stream import BinanceStreamClient
 from app.services.data_ingestion.market_source import LiveRatesSource, LiveRatesWsSource

@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 
 from app.core.database import get_db, get_redis
+from app.core.config import settings
 
 from app.services.data_ingestion.historical import HistoricalDataFetcher, DataUnavailable
 
